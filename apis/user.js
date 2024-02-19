@@ -30,7 +30,7 @@ router.post('/login', async(req,res)=>{
             if(isValidUser){
                 const token = jwt.sign({id: user._id,email:user.email},process.env.SECRET_KEY)
                 req.session.token = token
-                return res.status(200).send({msg:"Succesfully Loggedin"})
+                return res.status(200).send({token:token,msg:"Succesfully Loggedin"})
             } else{
                 return res.status(400).send({msg: "Invalid Password"})
             }
