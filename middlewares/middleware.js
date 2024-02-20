@@ -1,4 +1,5 @@
 const  User = require("../models/User");
+const jwt = require('jsonwebtoken')
 
 const isAlreadyRegistered = async (req,res,next)=>{
     try {
@@ -16,11 +17,16 @@ const isAlreadyRegistered = async (req,res,next)=>{
 
 const isAuthenticatedUser = async(req,res,next)=>{
     try {
-        const {token} = req.session;
-        if(token){
-            next();
+        const {authorization} = req.headers;
+        console.log(req.headers)
+        console.log(authorization)
+        
+        if(authorization){
+            return next();
+        }
+        else{
+            return res.status(400).send({msg: "Please Login Again"});
         } 
-        return res.status(400).send({msg: "Please Login Again"});
     } catch (error) {
         return res.status(500).send({msg: "Internal Server Error While Checking User Authentication"})
     }
