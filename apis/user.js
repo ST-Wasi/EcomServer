@@ -28,7 +28,10 @@ router.post('/login', async(req,res)=>{
         if(user){
             const isValidUser = await bcrypt.compare(password,user.password);
             if(isValidUser){
-                const token = jwt.sign({id: user._id},process.env.SECRET_KEY)
+                const token = jwt.sign({id: user._id,
+                email: user.email,
+                name: user.name,
+                },process.env.SECRET_KEY)
                 req.session.token = token
                 
                 return res.status(200).send({token:token,msg:"Succesfully Loggedin",user:user})
