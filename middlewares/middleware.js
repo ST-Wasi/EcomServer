@@ -15,21 +15,28 @@ const isAlreadyRegistered = async (req,res,next)=>{
     }
 }
 
-const isAuthenticatedUser = async(req,res,next)=>{
+const loggedIn = async (req, res, next) => {
+    let token = req.headers.authorization; 
     try {
-        const {authorization} = req.headers;
-        console.log(req.headers)
-        console.log(authorization)
-        
-        if(authorization){
-            return next();
+      if (token) {
+         token = req.headers.authorization.split(" ")[1];
+        if (token) {
+          const payload = jwt.verify(token, process.env.SECRET_KEY);
+          if (payload) {
+            req.user = payload;
+            next();
+          } else {
+            res.status(400).json({ error: "token verification failed" });
+          }
+        } else {
+          res.status(400).json({ error: "malformed auth header" });
         }
-        else{
-            return res.status(400).send({msg: "Please Login Again"});
-        } 
+      } else {
+        res.status(400).json({ error: "No authorization header" });
+      }
     } catch (error) {
-        return res.status(500).send({msg: "Internal Server Error While Checking User Authentication"})
+      res.status(500).json({ error });
     }
-}
+  };
 
-module.exports = {isAlreadyRegistered,isAuthenticatedUser}
+module.exports = {isAlreadyRegistered,loggedIn}

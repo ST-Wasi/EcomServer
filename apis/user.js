@@ -2,7 +2,7 @@ const express = require('express');
 const User = require('../models/User');
 const router = express.Router();
 const bcrypt = require('bcrypt')
-const {isAlreadyRegistered,isAuthenticatedUser} = require('../middlewares/middleware')
+const {isAlreadyRegistered,loggedIn} = require('../middlewares/middleware')
 const jwt = require('jsonwebtoken')
 
 router.post('/signup',isAlreadyRegistered, async (req,res)=>{
