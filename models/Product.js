@@ -4,11 +4,26 @@ const productSchema = new mongoose.Schema({
     name:{
         type: String,
     },
-    price: {
+    description: {
         type: String
     },
-    author:{
+    image:{
         type:String
+    },
+    price:{
+        type:String
+    },
+    category:{
+        type:Number
+    },
+    stock:{
+        type:String
+    },
+    isPopular:{
+        type: Boolean
+    },
+    isNew:{
+        type: Boolean
     }
 })
 
