@@ -8,7 +8,7 @@ const session = require('express-session')
 const cors = require('cors');
 
 app.use(cors({
-    origin: "http://localhost:5173"
+    origin: ["http://localhost:5173","https://react-ecom-fe-iota.vercel.app"]
   }))
 app.use(session({
     secret: process.env.SECRET_KEY,
