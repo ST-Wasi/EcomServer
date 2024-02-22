@@ -11,18 +11,18 @@ const productSchema = new mongoose.Schema({
         type:String
     },
     price:{
-        type:String
-    },
-    category:{
         type:Number
     },
-    stock:{
+    category:{
         type:String
+    },
+    stock:{
+        type:Number
     },
     isPopular:{
         type: Boolean
     },
-    isNew:{
+    isNewItem:{
         type: Boolean
     }
 })
