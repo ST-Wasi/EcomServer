@@ -39,4 +39,23 @@ const loggedIn = async (req, res, next) => {
     }
   };
 
-module.exports = {isAlreadyRegistered,loggedIn}
+  const isSeller = async (req,res,next)=>{
+    try {
+      const {email} = req.user;
+    const user = await User.find({email})
+    if(user.length > 0){
+      if(user[0].role === 'seller'){
+        next();
+      } else{
+        return res.status(400).send("Not Authorized")
+      }
+    } else{
+      return res.status(400).send("USer not Found");
+    }
+    } catch (error) {
+      return res.status(500).send("Internal Server Errr Faced While Checking Seller Authorization")
+    }
+    
+  }
+
+module.exports = {isAlreadyRegistered,loggedIn,isSeller}
