@@ -10,7 +10,7 @@ router.post('/products',loggedIn,async (req,res)=>{
     try {
         const {name,description,image,price,category,stock,isPopular,isNewItem} = req.body;
         if(name && description && image && price && category && stock){
-            await Product.create({name,description,image,price,category,stock,isPopular,isNewItem});
+            await Product.create({name,description,image,price,category,stock,isPopular,isNewItem,author:req.user.id});
             return res.status(201).send({msg: "Product Added Sucesfully"})
         } else{
             return res.status(500).send({msg: "Some Fields Are Missing"})

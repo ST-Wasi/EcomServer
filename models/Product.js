@@ -24,6 +24,10 @@ const productSchema = new mongoose.Schema({
     },
     isNewItem:{
         type: Boolean
+    },
+    author:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }
 })
 
